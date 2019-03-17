@@ -9,6 +9,7 @@ The aim is to provide a boilerplate with minimal configuration for front end pro
 * Testing with:
   * Karma
   * QUnit
+* Travis CI
 
 It provides basic set-up for:
 

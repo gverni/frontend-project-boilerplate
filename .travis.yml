@@ -1,0 +1,37 @@
+language: node_js
+dist: xenial
+node_js: lts/*
+sudo: true
+
+addons:
+  # firefox: latest
+  chrome: stable
+
+install:
+  - yarn install
+  # Check number of subdependencies
+  - if [ `yarn list | wc -l` -gt 4000 ]; then
+      exit 1;
+    fi
+  - yarn build
+
+  # # bundlesize
+  # - yarn global add bundlesize
+  # - bundlesize -f dist/*.js -s 15kB
+
+script:
+  - yarn test 
+  # - if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then
+  #     # Add script for TravisCI cron events
+  #   fi;
+
+notifications:
+  email:
+    on_success: never
+
+# after_success:
+#   # run automated release process with semantic-release
+#   - if [[ "$TRAVIS_BRANCH" = "master" ]]; then
+#       yarn global add semantic-release@16.0.0-beta.18 @semantic-release/changelog@3 @semantic-release/exec@3.4.0-beta.2 @semantic-release/git@7.1.0-beta.3;
+#       semantic-release;
+#     fi;
